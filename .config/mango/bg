@@ -13,8 +13,4 @@ fi
 
 # Set a wallpaper
 wallpaper=$(find "$wallpapersDir" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | shuf -n 1)
-awww img "$wallpaper" --transition-type fade --transition-duration 1
-
-# run pywal
-# awww query | awk '{print $9}'
-# wal -n -i $wallpaper --fg ffffff -b 000000 --cols16
+awww img "$wallpaper" --transition-type fade --transition-duration 0
