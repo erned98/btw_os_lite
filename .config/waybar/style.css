@@ -1,0 +1,49 @@
+* {
+    font-family: "IosevkaTerm Nerd Font";
+    font-size: 18px;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+}
+
+#tags button {
+    padding: 0 8px;
+    background: transparent;
+    border: none;
+    color: #141418;
+}
+
+#tags button.occupied {
+    color: #51525d;
+}
+
+#tags button.focused {
+    color: #ffffff;
+}
+
+#workspaces button {
+    padding: 0 2px;
+    background: transparent;
+    border: none;
+    color: #7f7f7f;
+}
+
+#workspaces button.visible {
+    color: #ffffff;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+}
+
+#window {
+    padding-left: 10px;
+}
+
+#pulseaudio,
+#battery,
+#clock {
+    padding: 0 10px;
+}

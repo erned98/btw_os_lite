@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Set the path to the wallpapers directory
+period=$(LC_ALL='C' redshift -p 2>/dev/null | grep 'Period' | awk '{print $2}')
+
+echo $period
+
+if [[ $period == "Night" ]]; then
+	wallpapersDir="$HOME/Wallpapers/dt/night"
+else
+	wallpapersDir="$HOME/Wallpapers/dt/day"
+fi
+
+# Set a wallpaper
+wallpaper=$(find "$wallpapersDir" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) | shuf -n 1)
+awww img "$wallpaper" --transition-type fade --transition-duration 1
+
+# run pywal
+# awww query | awk '{print $9}'
+# wal -n -i $wallpaper --fg ffffff -b 000000 --cols16

@@ -1,0 +1,36 @@
+# Screen
+indicator-radius=100
+indicator-thickness=10
+
+# Colors (dark, clean)
+color=000000
+inside-color=000000
+ring-color=32323b
+key-hl-color=ffffff
+line-color=00000000
+separator-color=00000000
+
+# When typing / verifying
+inside-ver-color=000000
+ring-ver-color=ff8a18
+
+# Wrong password
+inside-wrong-color=000000
+ring-wrong-color=ec0101
+
+# Text
+font=IosevkaTerm Nerd Font
+font-size=24
+text-color=ffffff
+layout-text-color=ffffff
+time-color=ffffff
+date-color=aaaaaa
+
+# Clock format
+timestr=%H:%M
+datestr=%A, %d %B
+
+# Behavior
+fade-in=0.3
+grace=2
+

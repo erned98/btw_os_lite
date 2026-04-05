@@ -1,0 +1,72 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+
+  "modules-left": [
+    "custom/lbracket",
+	"river/tags",
+	"custom/rbracket",
+    "river/window"
+  ],
+
+  "modules-center": [
+  ],
+
+  "modules-right": [
+    "pulseaudio",
+	"custom/sep",
+    "battery",
+	"custom/sep",
+    "clock"
+  ],
+  
+  "custom/sep": {
+	"format": "|"
+  },
+
+  "custom/lbracket": {
+	"format": " ["
+  },
+
+  "custom/rbracket": {
+	"format": "]"
+  },
+
+  "river/tags": {
+    "num-tags": 4
+  },
+
+  "river/window": {
+    "max-length": 80
+  },
+
+  "pulseaudio": {
+    "format": "vol {volume}%",
+    "format-muted": "vol 0%",
+    "scroll-step": 5
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "crg {capacity}%",
+    "format-full": "full",
+    "format-icons": [
+      "bat"
+    ],
+	"states": {
+		"warning": 30,
+		"critical": 15
+	},
+	"events": {
+		"on-discharging-warning": "notify-send -u normal 'Your battery is low.' 'Plug in to continue working.'",
+		"on-discharging-critical": "notify-send -u critical 'Your battery is very low!' 'Plug in immediately or you'll lose your unsaved work!'",
+		"on-charging-critical": "notify-send -u normal 'Your battery is charging.'",
+		"on-battery-100": "notify-send -u low 'Your battery is full."
+	}
+  },
+
+  "clock": {
+    "format": "{:%d/%m %H:%M}"
+  }
+}

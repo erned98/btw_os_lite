@@ -1,0 +1,136 @@
+## Basic
+alias ..='cd ..'
+alias 2..='cd ../..'
+alias 3..='cd ../../..'
+alias 4..='cd ../../../..'
+alias 5..='cd ../../../../..'
+alias h='cd ~'
+alias df='df -h -x tmpfs'
+alias du='du -h --max-depth=1 2> /dev/null | sort -h -r | head -n20'
+alias free='free -h'
+alias mkdir='mkdir -p'
+alias wiki='wikiman -q'
+alias q='exit'
+alias rb='reboot'
+alias pwr='shutdown -h'
+
+## Dotfiles
+alias n='$EDITOR'
+alias sn='sudoedit'
+alias g.='cd ~/.config'
+alias gc='git clone'
+alias gcm='git commit -m'
+alias arc='$EDITOR ~/.aliases'
+alias drc='$EDITOR ~/.config/dunst/dunstrc'
+
+if [[ -n "$ZSH_VERSION" ]]; then
+	alias shrc='$EDITOR ~/.zshrc'
+	alias rld='clear && source ~/.zshrc'
+else
+	alias shrc='$EDITOR ~/.bashrc'
+	alias rld='clear && source ~/.bashrc'
+fi
+
+if [[ $TERM == "xterm-kitty" ]]; then
+	alias ktrc='$EDITOR ~/.config/kitty/kitty.conf'
+elif [[ $TERM == "alacritty" ]]; then
+	if [ -n "$WAYLAND_DISPLAY" ]; then
+		alias ktrc='$EDITOR ~/.config/alacritty/alacritty-wayland.toml'
+	else
+		alias ktrc='$EDITOR ~/.config/alacritty/alacritty-xorg.toml'
+	fi
+elif [[ $TERM == "foot" ]]; then
+	alias ktrc='$EDITOR ~/.config/foot/foot.ini'
+fi
+
+## WM-specific
+if [[ $XDG_SESSION_DESKTOP == "bspwm" ]]; then
+	alias wmrc='$EDITOR ~/.config/bspwm/bspwmrc'
+	alias sxrc='$EDITOR ~/.config/sxhkd/sxhkdrc'
+	alias pbrc='$EDITOR ~/.config/polybar/config.ini'
+elif [[ $XDG_SESSION_DESKTOP == "qtile" || $XDG_SESSION_DESKTOP == "qtile-wayland" ]]; then
+	alias wmrc='$EDITOR ~/.config/qtile/config.py'
+elif [[ $XDG_SESSION_DESKTOP == "river" ]]; then
+	alias wmrc='$EDITOR ~/.config/river/init'
+	alias wbrc='$EDITOR ~/.config/waybar/config.jsonc'
+	alias wbs='$EDITOR ~/.config/waybar/style.css'
+elif [[ $XDG_SESSION_DESKTOP == "mango" ]]; then
+	alias wmrc='$EDITOR ~/.config/mango/config.conf'
+	alias wbrc='$EDITOR ~/.config/waybar/config-mango.jsonc'
+	alias wbs='$EDITOR ~/.config/waybar/style.css'
+fi
+
+if [[ $(tty) =~ "/dev/tty" ]]; then
+    alias strc='$EDITOR ~/.config/starship-tty.toml'
+else
+    alias strc='$EDITOR ~/.config/starship-gui.toml'
+fi
+
+## Productivity
+alias ytmp4="yt-dlp -f 'bv*[height<=1080]+ba/b[height<=1080]' --merge-output-format mp4 --cookies-from-browser brave -N 10"
+alias ytmp3="yt-dlp -f 'bestaudio/best' --extract-audio --audio-format mp3 --audio-quality 320k --add-metadata --cookies-from-browser brave -N 10"
+alias ping='ping -c 5'
+alias stf1='starship explain'
+alias updgrub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+## For the memes
+alias fetch='echo && fastfetch'
+alias hello="notify-send 'Oh, hi! Nice to see you!' 'Remember to take regular breaks and drink water!'"
+alias btw="notify-send 'i use arch btw'"
+alias pls='sudo $(fc -ln -1)'
+alias cmatrix='cmatrix -a'
+
+## Scripts
+alias newmonth='sh ~/Scripts/newmonth.sh'
+
+## Archive extraction
+function ex {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo -e "Usage: ex [path/file_name].[zip/rar/bz2/gz/tar/tbz2/tgz/Z/7z/xz/ex/tar.bz2/tar.gz/tar.xz]"
+    echo -e "       extract [path/file_name_1.ext] [path/file_name_2.ext] [path/file_name_3.ext]"
+ else
+    for n in "$@"
+    do
+      if [ -f "$n" ] ; then
+          case "${n%,}" in
+            *.cbt|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
+                         tar xvf "$n"       ;;
+            *.lzma)      unlzma ./"$n"      ;;
+            *.bz2)       bunzip2 ./"$n"     ;;
+            *.cbr|*.rar)       unrar x -ad ./"$n" ;;
+            *.gz)        gunzip ./"$n"      ;;
+            *.cbz|*.epub|*.zip)       unzip ./"$n"       ;;
+            *.z)         uncompress ./"$n"  ;;
+            *.7z|*.arj|*.cab|*.cb7|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.pkg|*.rpm|*.udf|*.wim|*.xar)
+                         7z x ./"$n"        ;;
+            *.xz)        unxz ./"$n"        ;;
+            *.exe)       cabextract ./"$n"  ;;
+            *.cpio)      cpio -id < ./"$n"  ;;
+            *.cba|*.ace)      unace x ./"$n"      ;;
+            *)
+                         echo "ex: '$n' - unknown archive method"
+                         return 1
+                         ;;
+          esac
+      else
+          echo "'$n' - file does not exist"
+          return 1
+      fi
+    done
+fi
+}
+
+## Package management
+alias s='yay -S'
+alias sy='yay -Sy'
+alias syu='yay -Syu'
+alias rn='yay -Rn'
+alias rns='yay -Rns'
+alias ss='yay -Ss'
+alias pw='yay -Pw'
+alias pww='yay -Pww'
+alias Q='pacman -Q'
+alias ql='pacman -Q | wc -l'
+alias si='pacman -Si'
+alias qdtq='yay -Rns $(pacman -Qdtq)'

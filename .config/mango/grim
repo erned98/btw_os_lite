@@ -1,0 +1,34 @@
+#! /bin/sh
+
+time=`date +%y%m%d_%H%M%S`
+dir="$HOME/Pictures/Screenshots/dell"
+file="Screenshot_${time}.png"
+
+# directory
+if [[ ! -d "$dir" ]]; then
+	mkdir -p "$dir"
+fi
+
+screen () {
+	grim $dir/$file
+	}
+
+clip () {
+	grim - | wl-copy
+	}
+
+area () {
+	grim -g $(slurp -d) - | wl-copy
+	}
+
+if [[ "$1" == "--screen" ]]; then
+	screen && notify-send 'A screenshot has been made.' 'You can see it in your screenshot directory.'
+elif [[ "$1" == "--clip" ]]; then
+	clip && notify-send 'A screenshot has been made and copied to clipboard.' 'You should be able to paste it wherever you want.'
+elif [[ "$1" == "--area" ]]; then
+	area && notify-send 'A screenshot has been made.' 'You can see it in your screenshot directory.'
+else
+	echo -e "Available options: --screen --clip --area"
+fi
+
+exit

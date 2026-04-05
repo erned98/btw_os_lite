@@ -1,0 +1,50 @@
+# some basic things
+max-items                   500
+keep-articles-days          180
+reload-threads              100
+external-url-viewer         "urlscan -dc -r 'linkhandler {}'"
+browser                     ~/Scripts/newsboat-open-link.sh
+prepopulate-query-feeds		yes
+cleanup-on-quit				yes
+
+# colors
+color background            white       default
+color listnormal            color15     default
+color listfocus             color0	    color11  	bold
+color listnormal_unread     color15     default
+color listfocus_unread      color0	    color11  	bold
+color title                 color15     color233  	bold    underline
+color info                  color15     color233  	bold
+color hint-key              color3      color233  	bold
+color hint-keys-delimiter   color15     color233
+color hint-separator        color3      color233  	bold
+color hint-description      color15     color233
+color article               color15     default
+
+highlight article "^(Feed|Link|Title|Date|Author|Links|Podcast Download URL):" color3 default bold
+highlight article "https?://[^ ]+" color6 default underline
+# highlight article "[[^ ]]" color2 default
+
+# formatting
+feedlist-title-format       "Your feeds (%u unread, %t total)%?T? - tag '%T'&?"
+articlelist-title-format    "Articles in feed '%T' (%u unread, %t total)"
+searchresult-title-format   "Search result (%u unread, %t total)"
+filebrowser-title-format    "%?O?Open File&Save File? - %f"
+help-title-format           "Help"
+selecttag-title-format      "Select tag"
+selectfilter-title-format   "Select filter"
+itemview-title-format       "%T"
+urlview-title-format        "%T - URLs"
+dialogs-title-format        "%T - Dialogs"
+
+# keybindings
+bind-key BACKSPACE quit
+bind-key q hard-quit
+
+# using tabs to sort things
+highlight feedlist "---.*--- " color3 default bold
+highlight feedlist "===.*===" color3 default bold
+highlight feedlist ".*0/0) " color0 default invis
+
+# no YT shorts
+ignore-article "*" "link =~ \"youtube.com\/shorts\/\""

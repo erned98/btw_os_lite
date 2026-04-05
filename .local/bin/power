@@ -1,0 +1,19 @@
+#!/bin/sh
+
+notify-send 'Hello user!' 'Remember to take regular breaks and drink water!'
+powerprofilesctl set balanced
+
+while upower -i "$(upower -e | grep 'BAT')" | grep -q "state:.*discharging"
+do
+    capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+
+    if [ "$capacity" -lt 10 ]; then
+        shutdown -h now
+    elif [ "$capacity" -le 30 ]; then
+        powerprofilesctl set power-saver
+	else
+		powerprofilesctl set balanced
+    fi
+
+    sleep 30
+done
